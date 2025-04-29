@@ -72,7 +72,7 @@
   }
 
   .tiger-image {
-    max-height: 180px;
+    max-height: 250px;
   }
 }
 
