@@ -2,11 +2,16 @@
   <div class="app-container">
     <tanglinLogo />
 
-    <tanglinHeader />
+    <div class="container">
+      <tanglinHeader />
 
-    <tigerLogo />
+<tigerLogo />
+    </div>
+
 
     <buttonContainer :buttons="customButtons" @button-click="handleButtonClick" />
+
+    <brandIcons />
   </div>
   <!-- <landingPage /> -->
 </template>
@@ -19,6 +24,7 @@ import tanglinLogo from './components/tanglinLogo.vue'
 import tanglinHeader from './components/tanglinHeader.vue'
 import tigerLogo from './components/tigerLogo.vue'
 import buttonContainer from './components/buttonContainer.vue'
+import brandIcons from './components/brandIcons.vue'
 
 // Buttons Info
 const customButtons = [
