@@ -71,13 +71,13 @@ body {
 }
 
 .custom-shape-divider-top-1745957112 .shape-fill {
-  fill: #00B398;
+  fill: #00b398;
 }
 
 /** For mobile devices **/
 @media (max-width: 767px) {
   .custom-shape-divider-top-1745957112 svg {
-      width: calc(146% + 1.3px);
-      height: 120px;
+    width: calc(146% + 1.3px);
+    height: 120px;
   }
 }

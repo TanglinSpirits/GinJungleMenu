@@ -1,30 +1,45 @@
 <script setup>
 // Brand Icons component to display social media links
-// You can customize the icons and links as needed
 
-import { ref } from 'vue';
+import { ref } from 'vue'
 
 // Define props for the component
 const props = defineProps({
-  // You can pass custom social links if needed
+
   socialLinks: {
     type: Array,
     default: () => [
-      { name: 'instagram', url: 'https://www.instagram.com/tanglinginsg/', icon: 'fa-brands fa-instagram' },
-      { name: 'facebook', url: '#', icon: 'fa-brands fa-facebook-f' },
-      { name: 'tiktok', url: '#', icon: 'fa-brands fa-tiktok' },
-      { name: 'email', url: '#', icon: 'fa-solid fa-envelope' }
-    ]
-  }
-});
+      {
+        name: 'instagram',
+        url: 'https://www.instagram.com/ginjunglebytanglingin/',
+        icon: 'fa-brands fa-instagram',
+      },
+      { 
+        name: 'facebook', 
+        url: 'https://www.facebook.com/thetanglinginjungle/', 
+        icon: 'fa-brands fa-facebook-f' 
+      },
+      { 
+        name: 'tiktok', 
+        url: 'https://www.tiktok.com/@tanglinginsg', 
+        icon: 'fa-brands fa-tiktok' 
+      },
+      { 
+        name: 'email', 
+        url: '#', 
+        icon: 'fa-solid fa-envelope' 
+      },
+    ],
+  },
+})
 </script>
 
 <template>
   <div class="social-icons-container">
-    <a 
-      v-for="(link, index) in socialLinks" 
+    <a
+      v-for="(link, index) in socialLinks"
       :key="index"
-      :href="link.url" 
+      :href="link.url"
       class="social-icon"
       :title="link.name"
       target="_blank"
@@ -58,8 +73,8 @@ const props = defineProps({
   transition: all 0.3s ease;
 }
 
-.social-icons-container a{
-    text-decoration: none;
+.social-icons-container a {
+  text-decoration: none;
 }
 
 /* .social-icon:hover {
@@ -72,7 +87,7 @@ const props = defineProps({
     gap: 15px;
     margin: 20px 0;
   }
-  
+
   .social-icon {
     width: 32px;
     height: 32px;
@@ -84,7 +99,7 @@ const props = defineProps({
   .social-icons-container {
     gap: 25px;
   }
-  
+
   .social-icon {
     width: 45px;
     height: 45px;
