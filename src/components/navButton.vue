@@ -62,6 +62,7 @@ const handleClick = () => {
   letter-spacing: 0.5px;
   text-transform: uppercase;
   box-sizing: border-box;
+  min-height: clamp(3.2rem, 8vh, 4.2rem);
 }
 
 .nav-button:not(.disabled):hover {
@@ -86,7 +87,6 @@ const handleClick = () => {
 }
 
 .disabled {
-  /* background-color: #a2956b; Darker gold/grey for disabled buttons */
   opacity: 40%;
   cursor: default;
 }
@@ -95,6 +95,7 @@ const handleClick = () => {
   .nav-button {
     padding: 10px 15px;
     font-size: 0.7rem;
+    min-height: clamp(2.5rem, 7vh, 3rem);
   }
 
   .arrow {
@@ -106,6 +107,7 @@ const handleClick = () => {
   .nav-button {
     padding: 20px 30px;
     font-size: 1.1rem;
+    min-height: clamp(3.5rem, 9vh, 4.5rem);
   }
 
   .arrow {
