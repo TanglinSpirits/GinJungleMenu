@@ -1,85 +1,54 @@
-<script setup>
-import { RouterLink, RouterView } from 'vue-router'
-import HelloWorld from './components/HelloWorld.vue'
-</script>
-
 <template>
-  <header>
-    <img alt="Vue logo" class="logo" src="@/assets/tiger.svg" width="125" height="125" />
+  <div class="app-container">
+    <tanglinLogo />
 
-    <div class="wrapper">
-      <HelloWorld msg="You did it!" />
+    <tanglinHeader />
 
-      <nav>
-        <RouterLink to="/">Home</RouterLink>
-        <RouterLink to="/about">About</RouterLink>
-      </nav>
-    </div>
-  </header>
+    <tigerLogo />
 
-  <RouterView />
+    <buttonContainer :buttons="customButtons" @button-click="handleButtonClick" />
+  </div>
+  <!-- <landingPage /> -->
 </template>
 
-<style scoped>
-header {
-  line-height: 1.5;
-  max-height: 100vh;
+<script setup>
+// Imports
+import { RouterLink, RouterView } from 'vue-router'
+import landingPage from './components/landingPage.vue'
+import tanglinLogo from './components/tanglinLogo.vue'
+import tanglinHeader from './components/tanglinHeader.vue'
+import tigerLogo from './components/tigerLogo.vue'
+import buttonContainer from './components/buttonContainer.vue'
+
+// Buttons Info
+const customButtons = [
+  {
+    text: 'START YOUR TASTING ADVENTURE',
+    disabled: false,
+    action: 'tasting',
+  },
+  {
+    text: 'TAKE US HOME',
+    disabled: false,
+    action: 'home',
+  },
+  {
+    text: 'HOST YOUR NEXT ADVENTURE',
+    disabled: false,
+    action: 'host',
+  },
+  {
+    text: 'WATCH THIS SPACE... (AND BRING A GLASS)',
+    disabled: true,
+    action: 'watch',
+  },
+]
+
+// Buttons logic
+const handleButtonClick = (action) => {
+  console.log(`Button clicked with action: ${action}`)
+  // You can add navigation or other logic here based on the action
 }
+</script>
 
-.logo {
-  display: block;
-  margin: 0 auto 2rem;
-}
-
-nav {
-  width: 100%;
-  font-size: 12px;
-  text-align: center;
-  margin-top: 2rem;
-}
-
-nav a.router-link-exact-active {
-  color: var(--color-text);
-}
-
-nav a.router-link-exact-active:hover {
-  background-color: transparent;
-}
-
-nav a {
-  display: inline-block;
-  padding: 0 1rem;
-  border-left: 1px solid var(--color-border);
-}
-
-nav a:first-of-type {
-  border: 0;
-}
-
-@media (min-width: 1024px) {
-  header {
-    display: flex;
-    place-items: center;
-    padding-right: calc(var(--section-gap) / 2);
-  }
-
-  .logo {
-    margin: 0 2rem 0 0;
-  }
-
-  header .wrapper {
-    display: flex;
-    place-items: flex-start;
-    flex-wrap: wrap;
-  }
-
-  nav {
-    text-align: left;
-    margin-left: -1rem;
-    font-size: 1rem;
-
-    padding: 1rem 0;
-    margin-top: 1rem;
-  }
-}
-</style>
+<style scoped></style>
