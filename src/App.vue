@@ -28,13 +28,12 @@
 
     <brandIcons />
   </div>
-  <!-- <landingPage /> -->
+
 </template>
 
 <script setup>
 // Imports
 import { RouterLink, RouterView } from 'vue-router'
-import landingPage from './components/landingPage.vue'
 import tanglinLogo from './components/tanglinLogo.vue'
 import tanglinHeader from './components/tanglinHeader.vue'
 import tigerLogo from './components/tigerLogo.vue'
