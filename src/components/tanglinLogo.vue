@@ -10,6 +10,7 @@
   justify-content: center;
   align-items: center;
   padding: clamp(10px, 2vw, 30px);
+  z-index: 1;
 }
 
 .tanglin-logo {
