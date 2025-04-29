@@ -61,7 +61,7 @@
 @media screen and (max-width: 480px) {
   .welcome-text,
   .jungle-text {
-    line-height: 1.2;
+    line-height: 0.9;
   }
 
   .header-container {
