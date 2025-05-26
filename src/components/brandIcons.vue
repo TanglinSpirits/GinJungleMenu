@@ -26,7 +26,7 @@ const props = defineProps({
       },
       { 
         name: 'email', 
-        url: '#', 
+        url: 'https://www.weeloy.com/integrations/automated_marketing/index.php?restaurant=SG_SG_R_TheGinJungle', 
         icon: 'fa-solid fa-envelope' 
       },
     ],

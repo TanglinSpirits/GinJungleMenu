@@ -46,7 +46,7 @@ const customButtons = [
     text: 'START YOUR TASTING ADVENTURE',
     disabled: false,
     action: 'tasting',
-    url: "/Jungle_Menu.pdf"
+    url: "/menu.html"
   },
   {
     text: 'TAKE US HOME',
