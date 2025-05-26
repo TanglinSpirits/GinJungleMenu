@@ -1,28 +1,45 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <link rel="apple-touch-icon" sizes="180x180" href="/favicon/apple-touch-icon.png">
-    <link rel="icon" type="image/png" sizes="32x32" href="/favicon/favicon-32x32.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="/favicon/favicon-16x16.png">
-    <link rel="manifest" href="/favicon/site.webmanifest">
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-    <title>Tanglin Gin Menu</title>
-    <style>
-        html, body {
-          margin: 0;
-          padding: 0;
-          height: 100%;
-          overflow: hidden;
-        }
-        iframe {
-          border: none;
-          width: 100%;
-          height: 100%;
-        }
-      </style>
+<link rel="apple-touch-icon" sizes="180x180" href="/favicon/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon/favicon-16x16.png">
+<link rel="manifest" href="/favicon/site.webmanifest">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Tanglin Gin Menu</title>
+<style>
+html, body {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    overflow: hidden;
+}
+iframe {
+    border: none;
+    width: 100%;
+    height: 100%;
+}
+</style>
 </head>
 <body>
-    <iframe src="/Jungle_Menu.pdf" allowfullscreen></iframe>
+<iframe src="/Jungle_Menu.pdf" allowfullscreen></iframe>
+
+<script>
+// Simple mobile detection and redirect
+function isMobile() {
+    const userAgent = navigator.userAgent.toLowerCase();
+    const mobileKeywords = /android|webos|iphone|ipad|ipod|blackberry|iemobile|opera mini/i;
+    const isSmallScreen = window.innerWidth <= 768;
+    return mobileKeywords.test(userAgent) || isSmallScreen;
+}
+
+// If mobile, redirect to direct PDF after a brief moment
+if (isMobile()) {
+    setTimeout(() => {
+        window.location.href = '/Jungle_Menu.pdf';
+    }, 500);
+}
+</script>
 </body>
 </html>
