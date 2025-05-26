@@ -48,7 +48,7 @@ const handleClick = () => {
   border: none;
   border-radius: clamp(15px, 5vw, 25px);
   padding: clamp(12px, 3vw, 18px) clamp(15px, 4vw, 25px);
-  font-size: clamp(0.8rem, 3vw, 1rem);
+  font-size: clamp(0.9rem, 3.2vw, 1.1rem) !important;
   font-weight: bold;
   color: #000;
   cursor: pointer;
