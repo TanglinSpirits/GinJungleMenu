@@ -46,7 +46,7 @@ const customButtons = [
     text: 'START YOUR TASTING ADVENTURE',
     disabled: false,
     action: 'tasting',
-    url: "/menu.html"
+    url: "https://drive.google.com/file/d/1yb-R0oQ34QN4A7KirM3Tk9xR1Ju85YN4/view?usp=share_link"
   },
   {
     text: 'TAKE US HOME',
