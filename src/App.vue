@@ -74,9 +74,17 @@ const handleButtonClick = (action) => {
   const clickedButton = customButtons.find(button => button.action === action)
 
   if (clickedButton && clickedButton.url && !clickedButton.disabled) {
-    window.open(clickedButton.url, '_blank')
+    let finalUrl = clickedButton.url
+
+    // Add cache-busting only for the tasting button
+    if (clickedButton.action === 'tasting') {
+      finalUrl += `?v=${Date.now()}`
+    }
+
+    window.open(finalUrl, '_blank')
   }
 }
+
 </script>
 
 <style scoped></style>
