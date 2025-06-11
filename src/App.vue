@@ -43,19 +43,25 @@ import brandIcons from './components/brandIcons.vue'
 // Buttons Info
 const customButtons = [
   {
-    text: 'START YOUR TASTING ADVENTURE',
+    text: 'EXPLORE OUR MENU',
     disabled: false,
-    action: 'tasting',
+    action: 'menu',
     url: "https://drive.google.com/file/d/1yb-R0oQ34QN4A7KirM3Tk9xR1Ju85YN4/preview"
   },
   {
-    text: 'TAKE US HOME',
+    text: 'VIEW CURRENT PROMOTIONS',
+    disabled: false,
+    action: 'promotions',
+    url: "https://drive.google.com/file/d/14CEEu91mCXXSoS0cV3kPOvbe5EJQBAlJ/view?usp=sharing",
+  },
+  {
+    text: 'TAKE HOME A BOTTLE',
     disabled: false,
     action: 'home',
     url: "https://tanglin-gin.com/shop/",
   },
   {
-    text: 'HOST YOUR NEXT ADVENTURE',
+    text: 'HOST A PRIVATE EVENT',
     disabled: false,
     action: 'host',
     url: "https://tanglin-gin.com/private-events/",
