@@ -46,13 +46,13 @@ const customButtons = [
     text: 'EXPLORE OUR MENU',
     disabled: false,
     action: 'menu',
-    url: "https://drive.google.com/file/d/1yb-R0oQ34QN4A7KirM3Tk9xR1Ju85YN4/preview"
+    url: "/menu.html"
   },
   {
     text: 'VIEW CURRENT PROMOTIONS',
     disabled: false,
     action: 'promotions',
-    url: "/menu.html",
+    url: "/promotions.html",
   },
   {
     text: 'TAKE HOME A BOTTLE',
