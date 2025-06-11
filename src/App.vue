@@ -52,7 +52,7 @@ const customButtons = [
     text: 'VIEW CURRENT PROMOTIONS',
     disabled: false,
     action: 'promotions',
-    url: "https://drive.google.com/file/d/14CEEu91mCXXSoS0cV3kPOvbe5EJQBAlJ/view?usp=sharing",
+    url: "https://drive.google.com/file/d/14CEEu91mCXXSoS0cV3kPOvbe5EJQBAlJ/preview",
   },
   {
     text: 'TAKE HOME A BOTTLE',
