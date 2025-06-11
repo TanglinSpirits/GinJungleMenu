@@ -1,5 +1,9 @@
 <template>
-  <div class="app-container">
+  <div v-if="loading" class="loading-container">
+    <div class="spinner"></div>
+  </div>
+
+  <div v-else class="app-container">
     <div class="container-fluid overlay">
       <div class="custom-shape-divider-top-1745957112">
         <svg
@@ -33,6 +37,7 @@
 
 <script setup>
 // Imports
+import { ref, onMounted } from 'vue'
 import { RouterLink, RouterView } from 'vue-router'
 import tanglinLogo from './components/tanglinLogo.vue'
 import tanglinHeader from './components/tanglinHeader.vue'
@@ -40,19 +45,29 @@ import tigerLogo from './components/tigerLogo.vue'
 import buttonContainer from './components/buttonContainer.vue'
 import brandIcons from './components/brandIcons.vue'
 
+// Loading state
+const loading = ref(true)
+
+onMounted(() => {
+  // Simulate a loading time
+  setTimeout(() => {
+    loading.value = false
+  }, 1000) // 2 seconds
+})
+
 // Buttons Info
 const customButtons = [
   {
     text: 'EXPLORE OUR MENU',
     disabled: false,
     action: 'menu',
-    url: "/menu.html"
+    url: "https://drive.google.com/file/d/1yb-R0oQ34QN4A7KirM3Tk9xR1Ju85YN4/preview"
   },
   {
     text: 'VIEW CURRENT PROMOTIONS',
     disabled: false,
     action: 'promotions',
-    url: "/promotions.html",
+    url: "https://drive.google.com/file/d/14CEEu91mCXXSoS0cV3kPOvbe5EJQBAlJ/preview",
   },
   {
     text: 'TAKE HOME A BOTTLE',
@@ -93,4 +108,26 @@ const handleButtonClick = (action) => {
 
 </script>
 
-<style scoped></style>
+<style scoped>
+  .loading-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: #000;
+  }
+
+  .spinner {
+    border: 4px solid rgba(255, 255, 255, 0.3);
+    border-radius: 50%;
+    border-top: 4px solid var(--green);
+    width: 50px;
+    height: 50px;
+    animation: spin 1s linear infinite;
+  }
+
+  @keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+  }
+</style>
