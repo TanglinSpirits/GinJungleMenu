@@ -50,7 +50,6 @@ const handleClick = () => {
   /* --- Split into two sections --- */
   display: flex;
   flex-direction: column;
-  overflow: hidden;
 }
 
 /* Top 20% section for title */
@@ -73,7 +72,7 @@ const handleClick = () => {
 
 /* Bottom 80% section for sign */
 .sign-section {
-  height: 80vh;
+  height: 70vh;
   display: flex;
   justify-content: center;
   align-items: center;
