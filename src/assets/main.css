@@ -18,6 +18,11 @@
   src: url('@/assets/fonts/Benton Sans Regular.otf');
 }
 
+@font-face {
+  font-family: 'Impact';
+  src: url('@/assets/marriot/impact.ttf');
+}
+
 html,
 body {
   margin: 0;
