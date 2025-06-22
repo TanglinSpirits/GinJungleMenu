@@ -23,6 +23,16 @@
   src: url('@/assets/marriot/Fonts/impact.ttf');
 }
 
+@font-face {
+  font-family: 'arial';
+  src: url('@/assets/marriot/Fonts/arial.ttf');
+}
+
+@font-face {
+  font-family: 'arialBold';
+  src: url('@/assets/marriots/Fonts/arialbd.ttf');
+}
+
 html,
 body {
   margin: 0;

@@ -36,26 +36,25 @@ const handleClick = () => {
 
 <style scoped>
 .page-container {
-  /* --- Full-screen background setup --- */
-  position: fixed;
-  top: 0;
-  left: 0;
+  /* --- Corrected styles for scrolling --- */
   width: 100%;
-  height: 100%;
-  background-image: url('@/assets/marriot/Screen 1 BGs.png');
+  min-height: 100dvh; /* Use min-height to allow the container to grow */
+
+  /* --- Original styles --- */
+  background-image: url('@/assets/marriot/Screen 1.png');
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
-  
-  /* --- Split into two sections --- */
   display: flex;
   flex-direction: column;
+  /* Removed position: fixed and overflow: hidden */
 }
+
 
 /* Top 20% section for title */
 .title-section {
-  margin-top: 10vh;
-  height: 20vh;
+  margin-top: 10dvh;
+  height: 20dvh;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -72,16 +71,18 @@ const handleClick = () => {
 
 /* Bottom 80% section for sign */
 .sign-section {
-  height: 70vh;
+  height: 70dvh;
   display: flex;
   justify-content: center;
   align-items: center;
   padding: clamp(10px, 2vh, 30px) clamp(15px, 5vw, 50px);
   box-sizing: border-box;
+  overflow-y: hidden;
 }
 
 .sign-container {
   position: relative;
+  top: 5dvh;
   width: 100%;
   height: 130%;
   display: flex;
