@@ -211,8 +211,8 @@ const restartQuiz = () => {
 }
 
 .narrative-text {
-  font-family: 'arial';
-  font-weight: bolder;
+  font-family: 'arialBold';
+  font-weight: bold;
   font-size: clamp(0.94rem, 2.5vw, 1.2rem);
   color: #770d00;
   line-height: 1.5;
