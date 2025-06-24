@@ -1,12 +1,13 @@
 <template>
   <div class="quiz-step-container">
-    <div class="quiz-image-container">
-      <img v-if="image" :src="image" alt="Quiz Step Image" class="quiz-image" />
-    </div>
 
     <div class="quiz-text-content">
       <p class="narrative-text">{{ narrative }}</p>
       <h2 class="question-text">{{ question }}</h2>
+    </div>
+
+    <div class="quiz-image-container">
+      <img v-if="image" :src="image" alt="Quiz Step Image" class="quiz-image" />
     </div>
 
     <div class="choices-container">
@@ -41,18 +42,17 @@ const props = defineProps({
     type: Array,
     required: true,
     // Validator to ensure choices are in the correct format
-    validator: (value) =>
-      value.every((choice) => 'text' in choice && 'value' in choice),
+    validator: (value) => value.every((choice) => 'text' in choice && 'value' in choice),
   },
-});
+})
 
 // Define the event that this component will emit
-const emit = defineEmits(['choice-made']);
+const emit = defineEmits(['choice-made'])
 
 // Function to emit the chosen value to the parent component
 const selectChoice = (value) => {
-  emit('choice-made', value);
-};
+  emit('choice-made', value)
+}
 </script>
 
 <style scoped>
@@ -61,15 +61,17 @@ const selectChoice = (value) => {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  padding: 20px;
+  width: 100dvw;
+  max-width: 100%;
+  height: 100dvh;
   text-align: center;
-  font-family: 'Benton Sans', sans-serif;
-  color: #333;
+  font-family: 'arialBold';
+  color: #770d00;
 }
 
 .quiz-image-container {
   margin-bottom: 2rem;
-  max-width: 300px;
+  max-width: 60dvw;
 }
 
 .quiz-image {
