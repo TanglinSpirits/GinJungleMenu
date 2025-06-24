@@ -2,21 +2,20 @@
   <div class="page-container">
     <!-- Top 20% - Title Section -->
     <div class="title-section">
-      <img src="@/assets/marriot/Screen 1 Title.png" alt="At the Crossroads" class="title-image">
+      <img src="@/assets/marriot/Screen 1 Title.png" alt="At the Crossroads" class="title-image" />
     </div>
-    
+
     <!-- Bottom 80% - Sign Section -->
     <div class="sign-section">
       <div class="sign-container">
-        <img src="@/assets/marriot/Full Stand.png" alt="Sign with Text" class="sign-image">
-        
+        <img src="@/assets/marriot/Full Stand.png" alt="Sign with Text" class="sign-image" />
+
         <!-- Additional clickable image - positioned over the sign -->
         <div class="clickable-element" @click="handleClick">
-            <button class="btn btn-outline-light rounded-pill">
-              <span class="begin-journey">BEGIN YOUR JOURNEY</span>
-            </button>
+          <button class="btn btn-outline-light rounded-pill">
+            <span class="begin-journey">BEGIN YOUR JOURNEY</span>
+          </button>
         </div>
-
       </div>
     </div>
   </div>
@@ -49,7 +48,6 @@ const handleClick = () => {
   flex-direction: column;
   /* Removed position: fixed and overflow: hidden */
 }
-
 
 /* Top 20% section for title */
 .title-section {
@@ -104,11 +102,11 @@ const handleClick = () => {
   top: 68%; /* Adjust vertical position */
   left: 50%; /* Adjust horizontal position */
   transform: translate(-50%, -50%); /* Center the element on the coordinates */
-  
+
   /* Make it clickable */
   cursor: pointer;
   z-index: 10;
-  
+
   /* Add visual feedback */
   transition: transform 0.2s ease;
 
@@ -134,15 +132,15 @@ const handleClick = () => {
   .title-section {
     padding: 8px 10px;
   }
-  
+
   .sign-section {
     padding: 8px 10px;
   }
-  
+
   .title-image {
     width: 85vw;
   }
-  
+
   .sign-image {
     width: 80vw;
   }
@@ -152,7 +150,7 @@ const handleClick = () => {
   .title-image {
     max-width: 400px;
   }
-  
+
   .sign-image {
     max-width: 400px;
   }
@@ -163,7 +161,7 @@ const handleClick = () => {
   .title-section {
     padding: 5px 20px;
   }
-  
+
   .sign-section {
     padding: 5px 20px;
   }
@@ -174,7 +172,7 @@ const handleClick = () => {
   .title-section {
     padding: 5px 15px;
   }
-  
+
   .sign-section {
     padding: 5px 15px;
   }

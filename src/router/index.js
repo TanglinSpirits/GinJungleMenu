@@ -12,24 +12,24 @@ const router = createRouter({
       name: 'home',
       component: HomeView,
       meta: {
-        title: 'Tanglin Menu'
-      }
+        title: 'Tanglin Menu',
+      },
     },
     {
-      path: '/marriot',
+      path: '/marriott',
       name: 'marriot',
       component: MarriotView,
       meta: {
-        title: 'Marriot At The Crossroads'
-      }
+        title: 'Marriot At The Crossroads',
+      },
     },
     {
-      path: '/marriot/start',
+      path: '/marriott/start',
       name: 'quiz',
       component: QuizView,
       meta: {
-        title: 'Quiz'
-      }
+        title: 'Quiz',
+      },
     },
   ],
 })
@@ -38,14 +38,14 @@ const router = createRouter({
 router.beforeEach((to, from, next) => {
   // 'to' is the route the user is navigating to.
   // We check if it has a title defined in its meta field.
-  
-  const defaultTitle = 'Tanglin Gin'; // A fallback title
+
+  const defaultTitle = 'Tanglin Gin' // A fallback title
 
   // Set the document title. Use the route's title if it exists, otherwise use the default.
-  document.title = to.meta.title || defaultTitle;
-  
+  document.title = to.meta.title || defaultTitle
+
   // 'next()' must be called to resolve the hook and continue with the navigation.
-  next();
-});
+  next()
+})
 
 export default router

@@ -5,7 +5,6 @@ import { ref } from 'vue'
 
 // Define props for the component
 const props = defineProps({
-
   socialLinks: {
     type: Array,
     default: () => [
@@ -14,20 +13,20 @@ const props = defineProps({
         url: 'https://www.instagram.com/ginjunglebytanglingin/',
         icon: 'fa-brands fa-instagram',
       },
-      { 
-        name: 'facebook', 
-        url: 'https://www.facebook.com/thetanglinginjungle/', 
-        icon: 'fa-brands fa-facebook-f' 
+      {
+        name: 'facebook',
+        url: 'https://www.facebook.com/thetanglinginjungle/',
+        icon: 'fa-brands fa-facebook-f',
       },
-      { 
-        name: 'tiktok', 
-        url: 'https://www.tiktok.com/@tanglinginsg', 
-        icon: 'fa-brands fa-tiktok' 
+      {
+        name: 'tiktok',
+        url: 'https://www.tiktok.com/@tanglinginsg',
+        icon: 'fa-brands fa-tiktok',
       },
-      { 
-        name: 'email', 
-        url: 'https://www.weeloy.com/integrations/automated_marketing/index.php?restaurant=SG_SG_R_TheGinJungle', 
-        icon: 'fa-solid fa-envelope' 
+      {
+        name: 'email',
+        url: 'https://www.weeloy.com/integrations/automated_marketing/index.php?restaurant=SG_SG_R_TheGinJungle',
+        icon: 'fa-solid fa-envelope',
       },
     ],
   },
