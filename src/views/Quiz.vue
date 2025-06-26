@@ -1,5 +1,6 @@
 <template>
-  <div v-if="currentStep || quizCompleted" class="quiz-page-container" :style="pageStyle">
+    <div class="background-container" :style='pageStyle'></div>
+  <div v-if="currentStep || quizCompleted" class="quiz-page-container" >
     <div class="content-container">
       <div v-if="!quizCompleted">
 
@@ -52,7 +53,7 @@
 <script setup>
 import { ref, computed } from 'vue'
 import { useRouter } from 'vue-router'
-import QuizStep from '@/components/marriot/QuizStep.vue'
+import QuizStep from '@/components/marriott/QuizStep.vue'
 
 const router = useRouter()
 
@@ -66,15 +67,15 @@ const finalResult = ref(null)
 const quizSteps = ref([
   {
     type: 'start',
-    bgImage: new URL('../assets/marriot/Screen 2 & Screen 8.png', import.meta.url).href,
-    image: new URL('../assets/marriot/Screen 2 Door.png', import.meta.url).href,
+    bgImage: new URL('../assets/marriott/Screen 2 & Screen 8.png', import.meta.url).href,
+    image: new URL('../assets/marriott/Screen 2 Door.png', import.meta.url).href,
     narrative: `Tonight, you've slipped into a world between worlds - where every choice shapes your path.\n\n To find your way back, you'll walk a path, each step revealing something deeper about who you are...\n\nAnd discover the spirit that matches you. \nYour perfect drink companion.`,
     buttonText: `Let's Go!`,
   },
   {
     type: 'question',
-    bgImage: new URL('../assets/marriot/Screen 3.png', import.meta.url).href,
-    image: new URL('../assets/marriot/Screen 3 Arrow.png', import.meta.url).href,
+    bgImage: new URL('../assets/marriott/Screen 3.png', import.meta.url).href,
+    image: new URL('../assets/marriott/Screen 3 Arrow.png', import.meta.url).href,
     narrative: `Before you lie three paths. They twist off in different directions - mysterious, inviting and unlike anything you've seen.`,
     question: 'Which path will you walk?',
     choices: [
@@ -89,8 +90,8 @@ const quizSteps = ref([
   },
   {
     type: 'question',
-    bgImage: new URL('../assets/marriot/Screen 4 & 7.png', import.meta.url).href,
-    image: new URL('../assets/marriot/Screen 4 Mirror.png', import.meta.url).href,
+    bgImage: new URL('../assets/marriott/Screen 4 & 7.png', import.meta.url).href,
+    image: new URL('../assets/marriott/Screen 4 Mirror.png', import.meta.url).href,
     narrative: `Halfway through your path, you encounter an ancient mirror that speaks, "Only by seeing yourself clearly can you move forward".`,
     question: 'What do you see?',
     choices: [
@@ -113,8 +114,8 @@ const quizSteps = ref([
   },
   {
     type: 'question',
-    bgImage: new URL('../assets/marriot/Screen 5.png', import.meta.url).href,
-    image: new URL('../assets/marriot/Screen 5 door.png', import.meta.url).href,
+    bgImage: new URL('../assets/marriott/Screen 5.png', import.meta.url).href,
+    image: new URL('../assets/marriott/Screen 5 door.png', import.meta.url).href,
     narrative: 'The mirror fades. Ahead, three doors stand in front of you... Each oddly shaped.',
     question: 'Which do you choose to enter?',
     choices: [
@@ -137,8 +138,8 @@ const quizSteps = ref([
   },
   {
     type: 'question',
-    bgImage: new URL('../assets/marriot/Screen 6.png', import.meta.url).href,
-    image: new URL('../assets/marriot/Screen 6 Menu Book.png', import.meta.url).href,
+    bgImage: new URL('../assets/marriott/Screen 6.png', import.meta.url).href,
+    image: new URL('../assets/marriott/Screen 6 Menu Book.png', import.meta.url).href,
     narrative: `The door creaks open... and it's a bar! Not quite the kind you're used to. The walls shimmer. Menus float in mid-air. Drinks pour themselves with a flicker of light. Your stomach suddenly growls after hours on your feet.`,
     question: 'What will you order to eat?',
     choices: [
@@ -149,8 +150,8 @@ const quizSteps = ref([
   },
   {
     type: 'question',
-    bgImage: new URL('../assets/marriot/Screen 4 & 7.png', import.meta.url).href,
-    image: new URL('../assets/marriot/Screen 7 Potion.png', import.meta.url).href,
+    bgImage: new URL('../assets/marriott/Screen 4 & 7.png', import.meta.url).href,
+    image: new URL('../assets/marriott/Screen 7 Potion.png', import.meta.url).href,
     narrative: `A man with glowing eyes appears behind the bar. "I'm the Spirit Keeper, Guardian of liquid destinies" he says. He places three glowing potions in front of you, each swirling with magic.`,
     question: `Choose wisely. The right spirit will lead you home.`,
     choices: [
@@ -173,8 +174,8 @@ const quizSteps = ref([
   },
   {
     type: 'end',
-    bgImage: new URL('../assets/marriot/Screen 2 & Screen 8.png', import.meta.url).href,
-    image: new URL('../assets/marriot/Screen 8 Cocktail.png', import.meta.url).href,
+    bgImage: new URL('../assets/marriott/Screen 2 & Screen 8.png', import.meta.url).href,
+    image: new URL('../assets/marriott/Screen 8 Cocktail.png', import.meta.url).href,
     narrative: ``,
     buttonText: 'See My Drink',
   },
@@ -190,13 +191,13 @@ const resultsData = {
   },
   GnT: {
     name: 'Singapore Gin & Tonic',
-    image: new URL('../assets/marriot/results/gin-tonic.png', import.meta.url).href,
+    image: new URL('../assets/marriott/results/gin-tonic.png', import.meta.url).href,
     description: `“Bright, grounded, and quietly complex - just like you.” You see the bigger picture when others get lost in the noise. Calm and self-aware, you thrive where thoughtfulness meets quiet confidence.`,
     reminder: 'Not every path is clear. Sometimes, instinct matters more than the plan.',
   },
   CP: {
     name: 'Crossroad Punch',
-    image: new URL('../assets/marriot/results/punch.png', import.meta.url).href,
+    image: new URL('../assets/marriott/results/punch.png', import.meta.url).href,
     description: `“Sweet, unexpected, and wonderfully wild - just like you.” You're vibrant, intuitive, and drawn to the new, the wild, and the wonderful.`,
     reminder:
       "Joy doesn't always come from movement. Sometimes, it finds you when you pause and listen to what you really need.",
@@ -273,18 +274,28 @@ const restartQuiz = () => {
   currentStepIndex.value = 0
   userAnswers.value = []
   finalResult.value = null
-  router.push('/marriot')
+  router.push('/marriott')
 }
 </script>
 
 <style scoped>
-.quiz-page-container {
+.background-container {
+  position: fixed;
   width: 100%;
   min-height: 100dvh;
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
   transition: background-image 0.5s ease-in-out;
+}
+
+.quiz-page-container {
+  width: 100%;
+  min-height: 100dvh;
+  /* background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  transition: background-image 0.5s ease-in-out; */
   display: flex;
   justify-content: center;
   align-items: center;

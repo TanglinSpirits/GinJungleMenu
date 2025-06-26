@@ -20,17 +20,17 @@
 
 @font-face {
   font-family: 'Impact';
-  src: url('@/assets/marriot/Fonts/impact.ttf');
+  src: url('@/assets/marriott/Fonts/impact.ttf');
 }
 
 @font-face {
   font-family: 'arial';
-  src: url('@/assets/marriot/Fonts/arial.ttf');
+  src: url('@/assets/marriott/Fonts/arial.ttf');
 }
 
 @font-face {
   font-family: 'arialBold';
-  src: url('@/assets/marriot/Fonts/arialbd.ttf');
+  src: url('@/assets/marriott/Fonts/arialbd.ttf');
 }
 
 html,

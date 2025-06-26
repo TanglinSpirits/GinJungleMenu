@@ -3,7 +3,7 @@
 
     <div class="quiz-text-content">
       <p class="narrative-text">{{ narrative }}</p>
-      <h2 class="question-text">{{ question }}</h2>
+      <p class="question-text">{{ question }}</p>
     </div>
 
     <div class="quiz-image-container">
@@ -60,58 +60,66 @@ const selectChoice = (value) => {
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
+  /* justify-content: space-between; */
   width: 100dvw;
   max-width: 100%;
   height: 100dvh;
+  margin: auto;
   text-align: center;
   font-family: 'arialBold';
   color: #770d00;
 }
 
+.quiz-text-content {
+  margin-top: 5dvh;
+  border: solid white 2px;
+  border-radius: 50px;
+  width: 85%;
+  padding: 1.5rem 1rem;
+  background-color: white;
+  font-family: 'arialBold';
+  margin-bottom: 5dvh;
+}
+
+.narrative-text {
+  font-size: 1.1rem;
+  margin-bottom: 1.5dvh;
+}
+
+.question-text {
+  font-size: 1.1rem;
+  margin-bottom: 0;
+}
+
 .quiz-image-container {
-  margin-bottom: 2rem;
-  max-width: 60dvw;
+  /* margin-bottom: 2rem; */
+  max-width: 500px;
+  width: 70%;
 }
 
 .quiz-image {
   width: 100%;
   height: auto;
   border-radius: 15px;
-}
-
-.quiz-text-content {
-  margin-bottom: 2rem;
-}
-
-.narrative-text {
-  font-size: 1.1rem;
-  color: #555;
-  margin-bottom: 1rem;
-}
-
-.question-text {
-  font-family: 'FSKim Bold', sans-serif;
-  font-size: 1.5rem;
-  font-weight: bold;
+  object-fit: contain;
 }
 
 .choices-container {
   display: flex;
   flex-direction: column;
   gap: 15px;
-  width: 100%;
+  width: 85%;
   max-width: 500px;
 }
 
 .choice-button {
-  background-color: #f0e87b; /* Using yellow from your theme */
+  background-color: white; /* Using yellow from your theme */
   border: none;
   border-radius: 25px;
   padding: 15px 20px;
   font-size: 1rem;
   font-weight: bold;
-  color: #000;
+  color: #770d00;
   cursor: pointer;
   transition: all 0.3s ease;
   text-align: center;
