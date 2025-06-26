@@ -1,14 +1,15 @@
 <template>
+  <div class="background-container"></div>
   <div class="page-container">
     <!-- Top 20% - Title Section -->
     <div class="title-section">
-      <img src="@/assets/marriot/Screen 1 Title.png" alt="At the Crossroads" class="title-image" />
+      <img src="@/assets/marriott/Screen 1 Title.png" alt="At the Crossroads" class="title-image" />
     </div>
 
     <!-- Bottom 80% - Sign Section -->
     <div class="sign-section">
       <div class="sign-container">
-        <img src="@/assets/marriot/Full Stand.png" alt="Sign with Text" class="sign-image" />
+        <img src="@/assets/marriott/Full Stand.png" alt="Sign with Text" class="sign-image" />
 
         <!-- Additional clickable image - positioned over the sign -->
         <div class="clickable-element" @click="handleClick">
@@ -34,23 +35,37 @@ const handleClick = () => {
 </script>
 
 <style scoped>
+.background-container {
+  position: fixed;
+  width: 100%;
+  min-height: 100dvh;
+
+  /* --- Original styles --- */
+  background-image: url('@/assets/marriott/Screen 1.png');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
 .page-container {
   /* --- Corrected styles for scrolling --- */
   width: 100%;
   min-height: 100dvh; /* Use min-height to allow the container to grow */
 
   /* --- Original styles --- */
-  background-image: url('@/assets/marriot/Screen 1.png');
+  /* background-image: url('@/assets/marriott/Screen 1.png');
   background-size: cover;
   background-position: center;
-  background-repeat: no-repeat;
+  background-repeat: no-repeat; */
   display: flex;
   flex-direction: column;
   /* Removed position: fixed and overflow: hidden */
+  z-index: 2;
 }
 
 /* Top 20% section for title */
 .title-section {
+  position: relative;
   margin-top: 10dvh;
   height: 20dvh;
   display: flex;
