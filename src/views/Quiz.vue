@@ -116,7 +116,7 @@ const quizSteps = ref([
     type: 'question',
     bgImage: new URL('../assets/marriott/Screen 5.png', import.meta.url).href,
     image: new URL('../assets/marriott/Screen 5 door.png', import.meta.url).href,
-    narrative: 'The mirror fades. Ahead, three doors stand in front of you... Each oddly shaped.',
+    narrative: 'The mirror fades. Ahead, three doors stand in front of you...\n\n Each oddly shaped.',
     question: 'Which do you choose to enter?',
     choices: [
       {
@@ -140,7 +140,7 @@ const quizSteps = ref([
     type: 'question',
     bgImage: new URL('../assets/marriott/Screen 6.png', import.meta.url).href,
     image: new URL('../assets/marriott/Screen 6 Menu Book.png', import.meta.url).href,
-    narrative: `The door creaks open... and it's a bar! Not quite the kind you're used to. The walls shimmer. Menus float in mid-air. Drinks pour themselves with a flicker of light. Your stomach suddenly growls after hours on your feet.`,
+    narrative: `The door creaks open... and it's a bar!\n\n Not quite the kind you're used to. The walls shimmer. Menus float in mid-air. Drinks pour themselves with a flicker of light. Your stomach suddenly growls after hours on your feet.`,
     question: 'What will you order to eat?',
     choices: [
       { text: 'Enchanted Lotus Wraps', value: 'food_lotus', answer: 'GnT' },
@@ -152,7 +152,7 @@ const quizSteps = ref([
     type: 'question',
     bgImage: new URL('../assets/marriott/Screen 4 & 7.png', import.meta.url).href,
     image: new URL('../assets/marriott/Screen 7 Potion.png', import.meta.url).href,
-    narrative: `A man with glowing eyes appears behind the bar. "I'm the Spirit Keeper, Guardian of liquid destinies" he says. He places three glowing potions in front of you, each swirling with magic.`,
+    narrative: `A man with glowing eyes appears behind the bar. "I'm the Spirit Keeper, Guardian of liquid destinies" he says.\n\n He places three glowing potions in front of you, each swirling with magic.`,
     question: `Choose wisely. The right spirit will lead you home.`,
     choices: [
       {

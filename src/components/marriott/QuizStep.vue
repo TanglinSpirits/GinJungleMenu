@@ -82,12 +82,13 @@ const selectChoice = (value) => {
 }
 
 .narrative-text {
-  font-size: 1.1rem;
-  margin-bottom: 1.5dvh;
+  font-size: 1rem;
+  /* margin-bottom: 1.5dvh; */
+  white-space: pre-wrap;
 }
 
 .question-text {
-  font-size: 1.1rem;
+  font-size: 1rem;
   margin-bottom: 0;
 }
 
@@ -110,6 +111,7 @@ const selectChoice = (value) => {
   gap: 15px;
   width: 85%;
   max-width: 500px;
+  padding:0 0 5dvh 0;
 }
 
 .choice-button {
