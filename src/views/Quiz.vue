@@ -287,6 +287,7 @@ const restartQuiz = () => {
   background-position: center;
   background-repeat: no-repeat;
   transition: background-image 0.5s ease-in-out;
+  scroll-behavior: smooth;
 }
 
 .quiz-page-container {
