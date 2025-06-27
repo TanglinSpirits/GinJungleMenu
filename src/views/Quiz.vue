@@ -328,7 +328,7 @@ const handleChoice = (choiceValue) => {
   nextStep();
 
   window.scrollTo({
-    top:0,
+    top: 0,
     behavior: 'smooth'
   });
 };
