@@ -1,6 +1,6 @@
 <template>
     <div class="background-container" :style='pageStyle'></div>
-  <div v-if="currentStep || quizCompleted" class="quiz-page-container" >
+  <div v-if="currentStep || quizCompleted" class="quiz-page-container" ref="scrollContainer">
     <div class="content-container">
       <div v-if="!quizCompleted">
 
@@ -63,6 +63,9 @@ import QuizResult from '@/components/marriott/QuizResult.vue';
 
 const router = useRouter();
 const route = useRoute();
+
+// 2. Create a ref to hold the DOM element
+const scrollContainer = ref(null);
 
 // --- STATE MANAGEMENT ---
 const userAnswers = ref([]);
@@ -327,10 +330,13 @@ const handleChoice = (choiceValue) => {
   userAnswers.value.push({ step: currentStepIndex.value, answer: choiceValue });
   nextStep();
 
-  window.scrollTo({
-    top: 0,
-    behavior: 'smooth'
-  });
+  // 3. Scroll the specific container ref instead of the window
+  if (scrollContainer.value) {
+    scrollContainer.value.scrollTo({
+      top: 0,
+      behavior: 'smooth'
+    });
+  }
 };
 
 const restartQuiz = () => {
@@ -364,6 +370,8 @@ const restartQuiz = () => {
   justify-content: center;
   align-items: center;
   text-align: center;
+  overflow-y: auto;
+  overflow-x: hidden;
 }
 
 .content-container {
