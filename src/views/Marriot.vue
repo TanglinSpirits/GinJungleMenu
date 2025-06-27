@@ -30,7 +30,7 @@ const router = useRouter()
 
 const handleClick = () => {
   // Handle click event for the additional image
-  router.push('/marriott/start')
+  router.push('/marriott/quiz/0')
 }
 </script>
 

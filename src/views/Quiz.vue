@@ -58,19 +58,22 @@
 </template>
 
 <script setup>
-import { ref, computed } from 'vue'
-import { useRouter } from 'vue-router'
-import QuizStep from '@/components/marriott/QuizStep.vue'
+import { ref, computed } from 'vue';
+import { useRouter, useRoute, onBeforeRouteUpdate } from 'vue-router';
+import QuizStep from '@/components/marriott/QuizStep.vue';
 
-const router = useRouter()
+const router = useRouter();
+const route = useRoute();
 
 // --- STATE MANAGEMENT ---
-const currentStepIndex = ref(0)
-const userAnswers = ref([])
-const quizCompleted = ref(false)
-const finalResult = ref(null)
+const userAnswers = ref([]);
+const quizCompleted = ref(false);
+const finalResult = ref(null);
+// The current step index is now a computed property based on the URL.
+// This makes the URL the single source of truth for the current view.
+const currentStepIndex = computed(() => parseInt(route.params.step || '0', 10));
 
-// --- QUIZ DATA with 'answer' instead of 'type' ---
+// --- DATA (Unchanged) ---
 const quizSteps = ref([
   {
     type: 'start',
@@ -186,13 +189,11 @@ const quizSteps = ref([
     narrative: `As you sip, you hear the bartender whisper:\n"You chose well."\n\nYou wake up back in your room.\nEverything looks the same... but something feels different. You glance down - there's a drink in your hand.\n\nIt's not just any cocktail. It's yours. Your spirit.`,
     buttonText: 'See My Drink',
   },
-])
-
-// --- RESULT DATA (Completed from PDF) ---
+]);
 const resultsData = {
   CN: {
     name: 'Chocolate Negroni',
-    image: new URL('../assets/marriot/results/negroni.png', import.meta.url).href,
+    image: new URL('../assets/marriott/results/negroni.png', import.meta.url).href,
     description: `“Bold and bittersweet, just like the stories you hold.” Beneath your cool exterior lies a soul lit by fire - sharp, deep, passionate.`,
     reminder: 'Everyone needs time to breathe. Give yourself permission to rest and feel joy.',
   },
@@ -209,10 +210,10 @@ const resultsData = {
     reminder:
       "Joy doesn't always come from movement. Sometimes, it finds you when you pause and listen to what you really need.",
   },
-}
+};
 
-// --- COMPUTED PROPERTIES ---
-const currentStep = computed(() => quizSteps.value[currentStepIndex.value])
+// --- COMPUTED PROPERTIES (Unchanged) ---
+const currentStep = computed(() => quizSteps.value[currentStepIndex.value]);
 const pageStyle = computed(() => {
   const imageUrl =
     quizCompleted.value && finalResult.value
@@ -221,12 +222,55 @@ const pageStyle = computed(() => {
         ? currentStep.value.bgImage
         : ''
   return { backgroundImage: `url(${imageUrl})` }
-})
+});
 
-// --- LOGIC / FUNCTIONS (Updated for new scoring system) ---
+// --- NAVIGATION GUARD & STATE LOGIC ---
+
+// Helper function to count how many questions precede a given step index
+const countQuestionsBefore = (stepIndex) => {
+  if (stepIndex <= 0) return 0;
+  return quizSteps.value.slice(0, stepIndex).filter(s => s.type === 'question').length;
+};
+
+// This navigation guard runs BEFORE any route change within this component.
+onBeforeRouteUpdate((to, from) => {
+  // Requirement 4: If the quiz is done, pressing "back" should go to /marriott
+  if (quizCompleted.value) {
+    // Reset state before navigating away
+    quizCompleted.value = false;
+    userAnswers.value = [];
+    finalResult.value = null;
+    router.push('/marriott');
+    return false; // Cancel the default "back" navigation
+  }
+
+  const toStep = parseInt(to.params.step, 10);
+  const fromStep = parseInt(from.params.step, 10);
+
+  // Requirement 3: Block invalid "forward" navigation
+  if (toStep > fromStep) {
+    const requiredAnswers = countQuestionsBefore(toStep);
+    if (userAnswers.value.length < requiredAnswers) {
+      return false; // Abort the navigation
+    }
+  }
+
+  // Requirement 2: If going back, remove the last answer
+  if (toStep < fromStep) {
+    if (userAnswers.value.length > 0) {
+      userAnswers.value.pop();
+    }
+  }
+
+  // If all checks pass, allow the navigation to proceed
+  return true;
+});
+
+
+// --- CORE QUIZ LOGIC ---
+
 const calculateResult = () => {
   const scores = { CN: 0, GnT: 0, CP: 0 }
-
   userAnswers.value.forEach((answerObj) => {
     const step = quizSteps.value.find((s, index) => index === answerObj.step)
     if (step && step.type === 'question') {
@@ -236,13 +280,10 @@ const calculateResult = () => {
       }
     }
   })
-
   const maxScore = Math.max(...Object.values(scores))
   const winners = Object.keys(scores).filter((type) => scores[type] === maxScore)
-
   let winningAnswer
   if (winners.length > 1) {
-    // Tie-breaking: find the first answer that matches a winning type
     for (const answerObj of userAnswers.value) {
       const step = quizSteps.value.find((s, index) => index === answerObj.step)
       if (step && step.type === 'question') {
@@ -254,35 +295,32 @@ const calculateResult = () => {
       }
     }
   } else {
-    // No tie
     winningAnswer = winners[0]
   }
-
   finalResult.value = { answer: winningAnswer, ...resultsData[winningAnswer] }
-}
+};
 
 const nextStep = () => {
-  if (currentStepIndex.value < quizSteps.value.length - 1) {
-    currentStepIndex.value++
+  const nextIndex = currentStepIndex.value + 1;
+  if (nextIndex < quizSteps.value.length) {
+    router.push(`/marriott/quiz/${nextIndex}`);
   } else {
-    calculateResult()
-    console.log(finalResult)
-    quizCompleted.value = true
+    calculateResult();
+    quizCompleted.value = true;
   }
-}
+};
 
 const handleChoice = (choiceValue) => {
-  userAnswers.value.push({ step: currentStepIndex.value, answer: choiceValue })
-  nextStep()
-}
+  userAnswers.value.push({ step: currentStepIndex.value, answer: choiceValue });
+  nextStep();
+};
 
 const restartQuiz = () => {
-  quizCompleted.value = false
-  currentStepIndex.value = 0
-  userAnswers.value = []
-  finalResult.value = null
-  router.push('/marriott')
-}
+  quizCompleted.value = false;
+  userAnswers.value = [];
+  finalResult.value = null;
+  router.push('/marriott/quiz/0');
+};
 </script>
 
 <style scoped>

@@ -24,7 +24,7 @@ const router = createRouter({
       },
     },
     {
-      path: '/marriott/start',
+      path: '/marriott/quiz/:step',
       name: 'quiz',
       component: QuizView,
       meta: {
