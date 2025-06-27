@@ -484,41 +484,6 @@ const restartQuiz = () => {
   transform: translateX(-50%) scale(1.05);
 }
 
-/* Results container styles */
-/* .quiz-results-container {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  align-items: center;
-  width: 100dvw;
-  max-width: 100%;
-  margin: auto;
-  height: 100dvh;
-}
-.quiz-results-container h1 {
-  font-size: clamp(2rem, 5dvw, 3rem);
-  margin-bottom: 1rem;
-}
-.quiz-results-container p {
-  font-size: clamp(1.1rem, 3dvw, 1.4rem);
-  margin-bottom: 2rem;
-} */
-.restart-button {
-  background-color: #f69300;
-  border: 2px solid white;
-  border-radius: 50px;
-  padding: 15px 30px;
-  font-family: 'Impact', sans-serif;
-  font-size: clamp(1.2rem, 3dvw, 1.5rem);
-  color: white;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-  text-transform: uppercase;
-}
-.restart-button:hover {
-  background-color: #e08600;
-}
-
 .end-button {
   padding: 12px 35px;
   width: auto;
@@ -533,5 +498,17 @@ const restartQuiz = () => {
   cursor: pointer;
   transition: all 0.3s ease;
   /* text-transform: uppercase; */
+}
+
+@media (hover: hover) {
+  .start-button:hover {
+    background-color: #e08600;
+    transform: translateX(-50%) scale(1.05);
+  }
+
+  .end-button:hover {
+    background-color: #e08600;
+    transform: scale(1.05);
+  }
 }
 </style>

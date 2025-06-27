@@ -140,7 +140,10 @@ const handleRestart = () => {
   margin-bottom: 5dvh;
 }
 
-.restart-button:hover {
-  background-color: #e08600;
+@media(hover: hover) {
+    .restart-button:hover {
+        background-color: #e08600;
+        transform: scale(1.05);
+    }    
 }
 </style>

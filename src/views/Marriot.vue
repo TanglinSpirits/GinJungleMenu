@@ -1,19 +1,16 @@
 <template>
   <div class="background-container"></div>
   <div class="page-container">
-    <!-- Top 20% - Title Section -->
     <div class="title-section">
       <img src="@/assets/marriott/Screen 1 Title.png" alt="At the Crossroads" class="title-image" />
     </div>
 
-    <!-- Bottom 80% - Sign Section -->
     <div class="sign-section">
       <div class="sign-container">
         <img src="@/assets/marriott/Full Stand.png" alt="Sign with Text" class="sign-image" />
 
-        <!-- Additional clickable image - positioned over the sign -->
         <div class="clickable-element" @click="handleClick">
-          <button class="btn btn-outline-light rounded-pill">
+          <button class="btn btn-outline-light rounded-pill" style="--bs-btn-hover-bg: none; --bs-btn-hover-color: white;">
             <span class="begin-journey">BEGIN YOUR JOURNEY</span>
           </button>
         </div>
@@ -132,9 +129,16 @@ const handleClick = () => {
   filter: drop-shadow(8px 8px 10px #d33d33);
 }
 
-.clickable-element:hover {
-  transform: translate(-50%, -50%) scale(1.05);
-  background-color: white;
+/* --- HOVER EFFECT FOR DESKTOP ONLY --- */
+@media (hover: hover) {
+  .clickable-element:hover {
+    transform: translate(-50%, -50%) scale(1.05);
+    background-color: white;
+  }
+
+  .begin-journey:hover {
+    color: black;
+  }
 }
 
 .begin-journey {
