@@ -21,6 +21,7 @@
           </div>
         </div>
       </div>
+
     </div>
   </div>
 </template>
@@ -131,26 +132,31 @@ const handleClick = () => {
 }
 
 .page-container {
-  width: 100%;
+  width: 100dvw;
+  max-width: 100%;
   min-height: 100dvh;
   display: flex;
   flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
   z-index: 2;
 }
 
 .title-section {
   position: relative;
-  margin-top: 10dvh;
-  height: 20dvh;
-  display: flex;
+  margin-top: 5dvh;
+  height: 30dvh;
+  width: 90%;
+  max-width: 500px;
+  /* display: flex;
   justify-content: center;
-  align-items: center;
-  padding: clamp(10px, 2vh, 30px) clamp(15px, 5vw, 50px);
-  box-sizing: border-box;
+  align-items: center; */
+  /* padding: clamp(10px, 2vh, 30px) clamp(15px, 5vw, 50px); */
+  /* box-sizing: border-box; */
 }
 
 .title-image {
-  width: clamp(200px, 80vw, 500px);
+  width: 100%;
   height: auto;
   object-fit: contain;
 }
@@ -206,10 +212,17 @@ const handleClick = () => {
   }
 }
 
+@media (orientation: landscape) and (max-height: 750px){
+  .title-section {
+    height: 20dvh;
+    max-width: 350px;
+  }
+}
+
 .begin-journey {
   font-family: 'Impact';
   text-wrap: nowrap;
-  font-size: clamp(1.9rem, 4vw, 2rem);
+  font-size: clamp(1.5rem, 3.5vw, 1.9rem);
 }
 
 .spinner {
