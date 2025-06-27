@@ -44,14 +44,19 @@
       </div>
 
       <!-- Quiz Result Page -->
-      <div v-else class="quiz-results-container">
-        <div v-if="finalResult">
-          <img :src="finalResult.image" alt="Your Drink" class="result-image" />
+      <div v-else> <!-- class="quiz-results-container" -->
+        <!-- <div v-if="finalResult"> -->
+        <QuizResult 
+            v-if="finalResult"
+            :result="finalResult"
+            @restart-quiz="restartQuiz"
+        />
+          <!-- <img :src="finalResult.image" alt="Your Drink" class="result-image" />
           <h1 class="result-title">{{ finalResult.name }}</h1>
           <p class="result-description">{{ finalResult.description }}</p>
           <p class="result-reminder"><strong>Your reminder:</strong> {{ finalResult.reminder }}</p>
-          <button @click="restartQuiz" class="restart-button">Begin Again</button>
-        </div>
+          <button @click="restartQuiz" class="restart-button">Begin Again</button> -->
+        <!-- </div> -->
       </div>
     </div>
   </div>
@@ -61,6 +66,7 @@
 import { ref, computed } from 'vue';
 import { useRouter, useRoute, onBeforeRouteUpdate } from 'vue-router';
 import QuizStep from '@/components/marriott/QuizStep.vue';
+import QuizResult from '@/components/marriott/QuizResult.vue';
 
 const router = useRouter();
 const route = useRoute();
@@ -193,20 +199,26 @@ const quizSteps = ref([
 const resultsData = {
   CN: {
     name: 'Chocolate Negroni',
-    image: new URL('../assets/marriott/results/negroni.png', import.meta.url).href,
-    description: `“Bold and bittersweet, just like the stories you hold.” Beneath your cool exterior lies a soul lit by fire - sharp, deep, passionate.`,
+    titleImage: new URL('../assets/marriott/Chocolate Negroni Text.png', import.meta.url).href,
+    image: new URL('../assets/marriott/Chocolate negroni image.png', import.meta.url).href,
+    heading: `“Bold and bittersweet, just like the stories you hold.”`,
+    description: `Beneath your cool exterior lies a soul lit by fire - sharp, deep, passionate.`,
     reminder: 'Everyone needs time to breathe. Give yourself permission to rest and feel joy.',
   },
   GnT: {
     name: 'Singapore Gin & Tonic',
-    image: new URL('../assets/marriott/results/gin-tonic.png', import.meta.url).href,
-    description: `“Bright, grounded, and quietly complex - just like you.” You see the bigger picture when others get lost in the noise. Calm and self-aware, you thrive where thoughtfulness meets quiet confidence.`,
+    titleImage: new URL('../assets/marriott/Gin & Tonic Text.png', import.meta.url).href,
+    image: new URL('../assets/marriott/Gin & Tonic Image.png', import.meta.url).href,
+    heading: `“Bright, grounded, and quietly complex - just like you.”`,
+    description: `You see the bigger picture when others get lost in the noise. Calm and self-aware, you thrive where thoughtfulness meets quiet confidence.`,
     reminder: 'Not every path is clear. Sometimes, instinct matters more than the plan.',
   },
   CP: {
     name: 'Crossroad Punch',
-    image: new URL('../assets/marriott/results/punch.png', import.meta.url).href,
-    description: `“Sweet, unexpected, and wonderfully wild - just like you.” You're vibrant, intuitive, and drawn to the new, the wild, and the wonderful.`,
+    titleImage: new URL('../assets/marriott/Crossroad Punch Text.png', import.meta.url).href,
+    image: new URL('../assets/marriott/Crossroad Punch Image.png', import.meta.url).href,
+    heading: `“Sweet, unexpected, and wonderfully wild - just like you.”`,
+    description: `You're vibrant, intuitive, and drawn to the new, the wild, and the wonderful.`,
     reminder:
       "Joy doesn't always come from movement. Sometimes, it finds you when you pause and listen to what you really need.",
   },
@@ -215,15 +227,22 @@ const resultsData = {
 // --- COMPUTED PROPERTIES (Unchanged) ---
 const currentStep = computed(() => quizSteps.value[currentStepIndex.value]);
 const pageStyle = computed(() => {
-  const imageUrl =
-    quizCompleted.value && finalResult.value
-      ? quizSteps.value[0].bgImage
-      : currentStep.value
-        ? currentStep.value.bgImage
-        : ''
-  return { backgroundImage: `url(${imageUrl})` }
-});
+  let imageUrl = '';
 
+  // 1. If the quiz is completed and the final result has its own background image...
+  if (quizCompleted.value && finalResult.value) {
+    // ...use the result's specific background image.
+    imageUrl = new URL('../assets/marriott/Result Screen.png', import.meta.url).href
+  } 
+  // 2. If the quiz is in progress...
+  else if (currentStep.value) {
+    // ...use the background image for the current step.
+    imageUrl = currentStep.value.bgImage;
+  }
+
+  // 3. Return the final style object.
+  return { backgroundImage: `url(${imageUrl})` };
+});
 // --- NAVIGATION GUARD & STATE LOGIC ---
 
 // Helper function to count how many questions precede a given step index
@@ -298,6 +317,7 @@ const calculateResult = () => {
     winningAnswer = winners[0]
   }
   finalResult.value = { answer: winningAnswer, ...resultsData[winningAnswer] }
+  console.log(finalResult)
 };
 
 const nextStep = () => {
@@ -465,8 +485,15 @@ const restartQuiz = () => {
 }
 
 /* Results container styles */
-.quiz-results-container {
-  font-family: 'FSKim Bold', sans-serif;
+/* .quiz-results-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  width: 100dvw;
+  max-width: 100%;
+  margin: auto;
+  height: 100dvh;
 }
 .quiz-results-container h1 {
   font-size: clamp(2rem, 5dvw, 3rem);
@@ -475,7 +502,7 @@ const restartQuiz = () => {
 .quiz-results-container p {
   font-size: clamp(1.1rem, 3dvw, 1.4rem);
   margin-bottom: 2rem;
-}
+} */
 .restart-button {
   background-color: #f69300;
   border: 2px solid white;
