@@ -28,10 +28,17 @@
         </div>
 
         <!-- End Page (See Your Drink Button) -->
-        <div v-else-if="currentStep.type === 'end'" class="start-container">
+        <div v-else-if="currentStep.type === 'end'" class="end-container">
+            <div class="text-container">
+                <p class="narrative-text">{{ currentStep.narrative }}</p>
+            </div>
+
           <div class="image-container">
-            <img :src="currentStep.image" alt="Your Drink" />
-            <button @click="nextStep" class="start-button">{{ currentStep.buttonText }}</button>
+            <img :src="currentStep.image" alt="Your Drink"/>
+          </div>
+
+          <div class="button-container">
+            <button @click="nextStep" class="end-button"><span style="white-space: nowrap;">{{ currentStep.buttonText }}</span></button>
           </div>
         </div>
       </div>
@@ -176,7 +183,7 @@ const quizSteps = ref([
     type: 'end',
     bgImage: new URL('../assets/marriott/Screen 2 & Screen 8.png', import.meta.url).href,
     image: new URL('../assets/marriott/Screen 8 Cocktail.png', import.meta.url).href,
-    narrative: ``,
+    narrative: `As you sip, you hear the bartender whisper:\n"You chose well."\n\nYou wake up back in your room.\nEverything looks the same... but something feels different. You glance down - there's a drink in your hand.\n\nIt's not just any cocktail. It's yours. Your spirit.`,
     buttonText: 'See My Drink',
   },
 ])
@@ -351,6 +358,47 @@ const restartQuiz = () => {
   object-fit: contain;
 }
 
+.end-container {
+  display: flex;
+  flex-direction: column;
+  /* justify-content: space-between; */
+  align-items: center;
+  width: 100dvw;
+  max-width: 100%;
+  margin: auto;
+  height: 100dvh;
+}
+
+.end-container .text-container {
+    width: 90%;
+    margin-top: 5dvh;
+    height: 30dvh;
+}
+
+.end-container .image-container {
+  flex-grow: 1; /* Allows the image container to fill available space */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 35dvh;
+  overflow: hidden; /* Prevents image from overflowing */
+}
+
+.end-container .image-container img {
+  width: 70dvw;
+  max-height: 100%; /* Ensures the image scales down with the container */
+  object-fit: contain;
+  transform: translateX(-4%) translateY(-5%);
+}
+
+.button-container {
+    position: relative;
+    width: 100%;
+    height: auto;
+    margin-bottom: 10dvh;
+}
+
 /* ---  UPDATED BUTTON STYLES --- */
 .start-button {
   position: absolute;
@@ -404,5 +452,21 @@ const restartQuiz = () => {
 }
 .restart-button:hover {
   background-color: #e08600;
+}
+
+.end-button {
+  padding: 12px 35px;
+  width: auto;
+
+  /* Original styles */
+  background-color: #ce2c05;
+  border: none; /* Removed the white border for a cleaner look */
+  border-radius: 50px;
+  font-family: 'Impact', sans-serif;
+  font-size: clamp(1.4rem, 4dvw, 1.8rem);
+  color: white;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  /* text-transform: uppercase; */
 }
 </style>

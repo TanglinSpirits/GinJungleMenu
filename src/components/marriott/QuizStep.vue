@@ -52,6 +52,11 @@ const emit = defineEmits(['choice-made'])
 // Function to emit the chosen value to the parent component
 const selectChoice = (value) => {
   emit('choice-made', value)
+  window.scrollTo({
+    top: 0,
+    behavior: 'smooth'
+  });
+
 }
 </script>
 
@@ -85,11 +90,13 @@ const selectChoice = (value) => {
   font-size: 1rem;
   /* margin-bottom: 1.5dvh; */
   white-space: pre-wrap;
+  line-height: 1.2;
 }
 
 .question-text {
   font-size: 1rem;
   margin-bottom: 0;
+  line-height: 1.2;
 }
 
 .quiz-image-container {
@@ -99,7 +106,7 @@ const selectChoice = (value) => {
 }
 
 .quiz-image {
-  width: 100%;
+  width: 65%;
   height: auto;
   border-radius: 15px;
   object-fit: contain;
