@@ -65,12 +65,6 @@ const handleClick = () => {
   min-height: clamp(3.2rem, 8vh, 4.2rem);
 }
 
-.nav-button:not(.disabled):hover {
-  background-color: #e8dc5e;
-  transform: translateY(-2px);
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-}
-
 .nav-button:not(.disabled):active {
   transform: translateY(0);
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
@@ -82,13 +76,22 @@ const handleClick = () => {
   transition: transform 0.2s ease;
 }
 
-.nav-button:not(.disabled):hover .arrow {
-  transform: translateX(4px);
-}
-
 .disabled {
   opacity: 40%;
   cursor: default;
+}
+
+/* --- HOVER STYLES FOR DESKTOP ONLY --- */
+@media (hover: hover) {
+  .nav-button:not(.disabled):hover {
+    background-color: #e8dc5e;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+
+  .nav-button:not(.disabled):hover .arrow {
+    transform: translateX(4px);
+  }
 }
 
 @media (max-width: 480px) {

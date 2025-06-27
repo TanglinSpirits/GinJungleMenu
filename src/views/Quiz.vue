@@ -44,33 +44,42 @@
       </div>
 
       <!-- Quiz Result Page -->
-      <div v-else class="quiz-results-container">
-        <div v-if="finalResult">
-          <img :src="finalResult.image" alt="Your Drink" class="result-image" />
+      <div v-else> <!-- class="quiz-results-container" -->
+        <!-- <div v-if="finalResult"> -->
+        <QuizResult 
+            v-if="finalResult"
+            :result="finalResult"
+            @restart-quiz="restartQuiz"
+        />
+          <!-- <img :src="finalResult.image" alt="Your Drink" class="result-image" />
           <h1 class="result-title">{{ finalResult.name }}</h1>
           <p class="result-description">{{ finalResult.description }}</p>
           <p class="result-reminder"><strong>Your reminder:</strong> {{ finalResult.reminder }}</p>
-          <button @click="restartQuiz" class="restart-button">Begin Again</button>
-        </div>
+          <button @click="restartQuiz" class="restart-button">Begin Again</button> -->
+        <!-- </div> -->
       </div>
     </div>
   </div>
 </template>
 
 <script setup>
-import { ref, computed } from 'vue'
-import { useRouter } from 'vue-router'
-import QuizStep from '@/components/marriott/QuizStep.vue'
+import { ref, computed } from 'vue';
+import { useRouter, useRoute, onBeforeRouteUpdate } from 'vue-router';
+import QuizStep from '@/components/marriott/QuizStep.vue';
+import QuizResult from '@/components/marriott/QuizResult.vue';
 
-const router = useRouter()
+const router = useRouter();
+const route = useRoute();
 
 // --- STATE MANAGEMENT ---
-const currentStepIndex = ref(0)
-const userAnswers = ref([])
-const quizCompleted = ref(false)
-const finalResult = ref(null)
+const userAnswers = ref([]);
+const quizCompleted = ref(false);
+const finalResult = ref(null);
+// The current step index is now a computed property based on the URL.
+// This makes the URL the single source of truth for the current view.
+const currentStepIndex = computed(() => parseInt(route.params.step || '0', 10));
 
-// --- QUIZ DATA with 'answer' instead of 'type' ---
+// --- DATA (Unchanged) ---
 const quizSteps = ref([
   {
     type: 'start',
@@ -186,47 +195,101 @@ const quizSteps = ref([
     narrative: `As you sip, you hear the bartender whisper:\n"You chose well."\n\nYou wake up back in your room.\nEverything looks the same... but something feels different. You glance down - there's a drink in your hand.\n\nIt's not just any cocktail. It's yours. Your spirit.`,
     buttonText: 'See My Drink',
   },
-])
-
-// --- RESULT DATA (Completed from PDF) ---
+]);
 const resultsData = {
   CN: {
     name: 'Chocolate Negroni',
-    image: new URL('../assets/marriot/results/negroni.png', import.meta.url).href,
-    description: `“Bold and bittersweet, just like the stories you hold.” Beneath your cool exterior lies a soul lit by fire - sharp, deep, passionate.`,
+    titleImage: new URL('../assets/marriott/Chocolate Negroni Text.png', import.meta.url).href,
+    image: new URL('../assets/marriott/Chocolate negroni image.png', import.meta.url).href,
+    heading: `“Bold and bittersweet, just like the stories you hold.”`,
+    description: `Beneath your cool exterior lies a soul lit by fire - sharp, deep, passionate.`,
     reminder: 'Everyone needs time to breathe. Give yourself permission to rest and feel joy.',
   },
   GnT: {
     name: 'Singapore Gin & Tonic',
-    image: new URL('../assets/marriott/results/gin-tonic.png', import.meta.url).href,
-    description: `“Bright, grounded, and quietly complex - just like you.” You see the bigger picture when others get lost in the noise. Calm and self-aware, you thrive where thoughtfulness meets quiet confidence.`,
+    titleImage: new URL('../assets/marriott/Gin & Tonic Text.png', import.meta.url).href,
+    image: new URL('../assets/marriott/Gin & Tonic Image.png', import.meta.url).href,
+    heading: `“Bright, grounded, and quietly complex - just like you.”`,
+    description: `You see the bigger picture when others get lost in the noise. Calm and self-aware, you thrive where thoughtfulness meets quiet confidence.`,
     reminder: 'Not every path is clear. Sometimes, instinct matters more than the plan.',
   },
   CP: {
     name: 'Crossroad Punch',
-    image: new URL('../assets/marriott/results/punch.png', import.meta.url).href,
-    description: `“Sweet, unexpected, and wonderfully wild - just like you.” You're vibrant, intuitive, and drawn to the new, the wild, and the wonderful.`,
+    titleImage: new URL('../assets/marriott/Crossroad Punch Text.png', import.meta.url).href,
+    image: new URL('../assets/marriott/Crossroad Punch Image.png', import.meta.url).href,
+    heading: `“Sweet, unexpected, and wonderfully wild - just like you.”`,
+    description: `You're vibrant, intuitive, and drawn to the new, the wild, and the wonderful.`,
     reminder:
       "Joy doesn't always come from movement. Sometimes, it finds you when you pause and listen to what you really need.",
   },
-}
+};
 
-// --- COMPUTED PROPERTIES ---
-const currentStep = computed(() => quizSteps.value[currentStepIndex.value])
+// --- COMPUTED PROPERTIES (Unchanged) ---
+const currentStep = computed(() => quizSteps.value[currentStepIndex.value]);
 const pageStyle = computed(() => {
-  const imageUrl =
-    quizCompleted.value && finalResult.value
-      ? quizSteps.value[0].bgImage
-      : currentStep.value
-        ? currentStep.value.bgImage
-        : ''
-  return { backgroundImage: `url(${imageUrl})` }
-})
+  let imageUrl = '';
 
-// --- LOGIC / FUNCTIONS (Updated for new scoring system) ---
+  // 1. If the quiz is completed and the final result has its own background image...
+  if (quizCompleted.value && finalResult.value) {
+    // ...use the result's specific background image.
+    imageUrl = new URL('../assets/marriott/Result Screen.png', import.meta.url).href
+  } 
+  // 2. If the quiz is in progress...
+  else if (currentStep.value) {
+    // ...use the background image for the current step.
+    imageUrl = currentStep.value.bgImage;
+  }
+
+  // 3. Return the final style object.
+  return { backgroundImage: `url(${imageUrl})` };
+});
+// --- NAVIGATION GUARD & STATE LOGIC ---
+
+// Helper function to count how many questions precede a given step index
+const countQuestionsBefore = (stepIndex) => {
+  if (stepIndex <= 0) return 0;
+  return quizSteps.value.slice(0, stepIndex).filter(s => s.type === 'question').length;
+};
+
+// This navigation guard runs BEFORE any route change within this component.
+onBeforeRouteUpdate((to, from) => {
+  // Requirement 4: If the quiz is done, pressing "back" should go to /marriott
+  if (quizCompleted.value) {
+    // Reset state before navigating away
+    quizCompleted.value = false;
+    userAnswers.value = [];
+    finalResult.value = null;
+    router.push('/marriott');
+    return false; // Cancel the default "back" navigation
+  }
+
+  const toStep = parseInt(to.params.step, 10);
+  const fromStep = parseInt(from.params.step, 10);
+
+  // Requirement 3: Block invalid "forward" navigation
+  if (toStep > fromStep) {
+    const requiredAnswers = countQuestionsBefore(toStep);
+    if (userAnswers.value.length < requiredAnswers) {
+      return false; // Abort the navigation
+    }
+  }
+
+  // Requirement 2: If going back, remove the last answer
+  if (toStep < fromStep) {
+    if (userAnswers.value.length > 0) {
+      userAnswers.value.pop();
+    }
+  }
+
+  // If all checks pass, allow the navigation to proceed
+  return true;
+});
+
+
+// --- CORE QUIZ LOGIC ---
+
 const calculateResult = () => {
   const scores = { CN: 0, GnT: 0, CP: 0 }
-
   userAnswers.value.forEach((answerObj) => {
     const step = quizSteps.value.find((s, index) => index === answerObj.step)
     if (step && step.type === 'question') {
@@ -236,13 +299,10 @@ const calculateResult = () => {
       }
     }
   })
-
   const maxScore = Math.max(...Object.values(scores))
   const winners = Object.keys(scores).filter((type) => scores[type] === maxScore)
-
   let winningAnswer
   if (winners.length > 1) {
-    // Tie-breaking: find the first answer that matches a winning type
     for (const answerObj of userAnswers.value) {
       const step = quizSteps.value.find((s, index) => index === answerObj.step)
       if (step && step.type === 'question') {
@@ -254,35 +314,33 @@ const calculateResult = () => {
       }
     }
   } else {
-    // No tie
     winningAnswer = winners[0]
   }
-
   finalResult.value = { answer: winningAnswer, ...resultsData[winningAnswer] }
-}
+  console.log(finalResult)
+};
 
 const nextStep = () => {
-  if (currentStepIndex.value < quizSteps.value.length - 1) {
-    currentStepIndex.value++
+  const nextIndex = currentStepIndex.value + 1;
+  if (nextIndex < quizSteps.value.length) {
+    router.push(`/marriott/quiz/${nextIndex}`);
   } else {
-    calculateResult()
-    console.log(finalResult)
-    quizCompleted.value = true
+    calculateResult();
+    quizCompleted.value = true;
   }
-}
+};
 
 const handleChoice = (choiceValue) => {
-  userAnswers.value.push({ step: currentStepIndex.value, answer: choiceValue })
-  nextStep()
-}
+  userAnswers.value.push({ step: currentStepIndex.value, answer: choiceValue });
+  nextStep();
+};
 
 const restartQuiz = () => {
-  quizCompleted.value = false
-  currentStepIndex.value = 0
-  userAnswers.value = []
-  finalResult.value = null
-  router.push('/marriott')
-}
+  quizCompleted.value = false;
+  userAnswers.value = [];
+  finalResult.value = null;
+  router.push('/marriott/quiz/0');
+};
 </script>
 
 <style scoped>
@@ -426,34 +484,6 @@ const restartQuiz = () => {
   transform: translateX(-50%) scale(1.05);
 }
 
-/* Results container styles */
-.quiz-results-container {
-  font-family: 'FSKim Bold', sans-serif;
-}
-.quiz-results-container h1 {
-  font-size: clamp(2rem, 5dvw, 3rem);
-  margin-bottom: 1rem;
-}
-.quiz-results-container p {
-  font-size: clamp(1.1rem, 3dvw, 1.4rem);
-  margin-bottom: 2rem;
-}
-.restart-button {
-  background-color: #f69300;
-  border: 2px solid white;
-  border-radius: 50px;
-  padding: 15px 30px;
-  font-family: 'Impact', sans-serif;
-  font-size: clamp(1.2rem, 3dvw, 1.5rem);
-  color: white;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-  text-transform: uppercase;
-}
-.restart-button:hover {
-  background-color: #e08600;
-}
-
 .end-button {
   padding: 12px 35px;
   width: auto;
@@ -468,5 +498,17 @@ const restartQuiz = () => {
   cursor: pointer;
   transition: all 0.3s ease;
   /* text-transform: uppercase; */
+}
+
+@media (hover: hover) {
+  .start-button:hover {
+    background-color: #e08600;
+    transform: translateX(-50%) scale(1.05);
+  }
+
+  .end-button:hover {
+    background-color: #e08600;
+    transform: scale(1.05);
+  }
 }
 </style>

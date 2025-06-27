@@ -135,8 +135,11 @@ const selectChoice = (value) => {
   width: 100%;
 }
 
-.choice-button:hover {
-  background-color: #e8dc5e;
-  transform: translateY(-2px);
+/* --- HOVER STYLES FOR DESKTOP ONLY --- */
+@media (hover: hover) {
+  .choice-button:hover {
+    background-color: #e8dc5e;
+    transform: translateY(-2px);
+  }
 }
 </style>
