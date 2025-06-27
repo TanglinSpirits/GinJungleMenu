@@ -344,7 +344,7 @@ const restartQuiz = () => {
   quizCompleted.value = false;
   userAnswers.value = [];
   finalResult.value = null;
-  router.push('/marriott/quiz/0');
+  router.push('/marriott');
 };
 </script>
 
