@@ -29,75 +29,70 @@
 </template>
 
 <script setup>
-// Imports
 import { ref, onMounted, nextTick } from 'vue'
-import { RouterLink, RouterView } from 'vue-router'
+import { useHead } from '@unhead/vue' // 1. Import useHead
 import tanglinLogo from '../components/tanglinLogo.vue'
 import tanglinHeader from '../components/tanglinHeader.vue'
 import tigerLogo from '../components/tigerLogo.vue'
 import buttonContainer from '../components/buttonContainer.vue'
 import brandIcons from '../components/brandIcons.vue'
 
-// Loading state
+// --- Define Assets and SEO Metadata ---
 const loading = ref(true)
 
-onMounted(async () => {
-  // Simple, reliable loading sequence
+const imageUrls = [
+  new URL('../assets/tanglinLogo.png', import.meta.url).href,
+  new URL('../assets/tiger2.png', import.meta.url).href,
+];
 
-  // Wait for Vue to mount
+const fontUrls = [
+  { url: new URL('../assets/fonts/FSKim-Bold.ttf', import.meta.url).href, type: 'font/ttf' },
+  { url: new URL('../assets/fonts/Benton Sans Regular.otf', import.meta.url).href, type: 'font/otf' },
+];
+
+// --- Configure useHead ---
+useHead({
+  title: 'Tanglin Menu',
+  meta: [
+    { name: 'description', content: 'Explore the menu, promotions, and private events at the Tanglin Gin Jungle.' },
+  ],
+  link: [
+    // Preload critical images
+    ...imageUrls.map(url => ({ rel: 'preload', as: 'image', href: url })),
+    // Preload critical fonts
+    ...fontUrls.map(font => ({ rel: 'preload', as: 'font', type: font.type, crossorigin: 'anonymous', href: font.url })),
+  ],
+});
+
+
+// --- Preloading gatekeeper logic (remains the same) ---
+onMounted(async () => {
   await nextTick()
 
-  // Wait a bit more for components to render
-  await new Promise((resolve) => setTimeout(resolve, 100))
+  const loadImage = src => new Promise((resolve, reject) => {
+    const img = new Image()
+    img.onload = () => resolve(src)
+    img.onerror = reject
+    img.src = src
+  });
 
-  // Try to wait for images, but with timeout
-  const waitForImages = () => {
-    return new Promise((resolve) => {
-      const images = document.querySelectorAll('img')
+  const loadFont = font => document.fonts.load(`1em "${font.url.split('/').pop().split('.')[0]}"`);
 
-      if (images.length === 0) {
-        resolve()
-        return
-      }
+  const loadingTasks = [
+    ...imageUrls.map(loadImage),
+    ...fontUrls.map(loadFont),
+  ];
 
-      let loadedCount = 0
-      const totalImages = images.length
-
-      // Set a timeout to prevent hanging
-      const timeout = setTimeout(() => {
-        console.log('Image loading timeout, proceeding anyway')
-        resolve()
-      }, 2000) // 2 second timeout
-
-      const checkComplete = () => {
-        loadedCount++
-        if (loadedCount >= totalImages) {
-          clearTimeout(timeout)
-          resolve()
-        }
-      }
-
-      images.forEach((img) => {
-        if (img.complete) {
-          checkComplete()
-        } else {
-          img.addEventListener('load', checkComplete)
-          img.addEventListener('error', checkComplete)
-        }
-      })
-    })
+  try {
+    await Promise.all(loadingTasks);
+  } catch (error) {
+    console.error("A critical asset failed to load for the home page:", error);
+  } finally {
+    loading.value = false;
   }
-
-  await waitForImages()
-
-  // Minimum loading time for smooth UX
-  await new Promise((resolve) => setTimeout(resolve, 300))
-
-  // Hide loading
-  loading.value = false
 })
 
-// Buttons Info
+// --- Buttons ---
 const customButtons = [
   {
     text: 'EXPLORE OUR MENU',
@@ -130,45 +125,16 @@ const customButtons = [
   },
 ]
 
-// Buttons logic
 const handleButtonClick = (action) => {
-  console.log(`Button clicked with action: ${action}`)
   const clickedButton = customButtons.find((button) => button.action === action)
   if (clickedButton && clickedButton.url && !clickedButton.disabled) {
-    let finalUrl = clickedButton.url
-    // Add cache-busting only for the tasting button
-    if (clickedButton.action === 'tasting') {
-      finalUrl += `?v=${Date.now()}`
-    }
-    window.open(finalUrl, '_blank')
+    window.open(clickedButton.url, '_blank')
   }
 }
 </script>
 
 <style scoped>
-.loading-container {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100vh;
-  background-color: #000;
-}
-
 .spinner {
-  border: 4px solid rgba(255, 255, 255, 0.3);
-  border-radius: 50%;
-  border-top: 4px solid var(--green);
-  width: 50px;
-  height: 50px;
-  animation: spin 1s linear infinite;
-}
-
-@keyframes spin {
-  0% {
-    transform: rotate(0deg);
-  }
-  100% {
-    transform: rotate(360deg);
-  }
+  border-top-color: var(--green);
 }
 </style>
