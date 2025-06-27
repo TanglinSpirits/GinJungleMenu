@@ -326,6 +326,11 @@ const nextStep = () => {
 const handleChoice = (choiceValue) => {
   userAnswers.value.push({ step: currentStepIndex.value, answer: choiceValue });
   nextStep();
+
+  window.scrollTo({
+    top:0,
+    behavior: 'smooth'
+  });
 };
 
 const restartQuiz = () => {
