@@ -52,10 +52,10 @@ const emit = defineEmits(['choice-made'])
 // Function to emit the chosen value to the parent component
 const selectChoice = (value) => {
   emit('choice-made', value)
-  window.scrollTo({
-    top: 0,
-    behavior: 'smooth'
-  });
+  // window.scrollTo({
+  //   top: 0,
+  //   behavior: 'smooth'
+  // });
 
 }
 </script>

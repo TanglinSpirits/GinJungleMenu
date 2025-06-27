@@ -330,11 +330,12 @@ const handleChoice = (choiceValue) => {
   userAnswers.value.push({ step: currentStepIndex.value, answer: choiceValue });
   nextStep();
 
-  // 3. Scroll the specific container ref instead of the window
+  // Scroll the specific container ref instead of the window
+//   console.log(scrollContainer.value + "AHHH")
   if (scrollContainer.value) {
     scrollContainer.value.scrollTo({
       top: 0,
-      behavior: 'smooth'
+      behavior: 'auto'
     });
   }
 };
