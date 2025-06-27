@@ -44,19 +44,12 @@
       </div>
 
       <!-- Quiz Result Page -->
-      <div v-else> <!-- class="quiz-results-container" -->
-        <!-- <div v-if="finalResult"> -->
+      <div v-else>
         <QuizResult 
             v-if="finalResult"
             :result="finalResult"
             @restart-quiz="restartQuiz"
         />
-          <!-- <img :src="finalResult.image" alt="Your Drink" class="result-image" />
-          <h1 class="result-title">{{ finalResult.name }}</h1>
-          <p class="result-description">{{ finalResult.description }}</p>
-          <p class="result-reminder"><strong>Your reminder:</strong> {{ finalResult.reminder }}</p>
-          <button @click="restartQuiz" class="restart-button">Begin Again</button> -->
-        <!-- </div> -->
       </div>
     </div>
   </div>
@@ -476,12 +469,6 @@ const restartQuiz = () => {
   cursor: pointer;
   transition: all 0.3s ease;
   /* text-transform: uppercase; */
-}
-
-.start-button:hover {
-  background-color: #e08600;
-  /* Adjust transform on hover to avoid overriding the centering */
-  transform: translateX(-50%) scale(1.05);
 }
 
 .end-button {
