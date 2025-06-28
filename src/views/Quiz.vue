@@ -164,8 +164,8 @@ const quizSteps = ref([
     type: 'question',
     bgImage: new URL('../assets/marriott/Screen 4 & 7.png', import.meta.url).href,
     image: new URL('../assets/marriott/Screen 7 Potion.png', import.meta.url).href,
-    narrative: `A man with glowing eyes appears behind the bar. "I'm the Spirit Keeper, Guardian of liquid destinies" he says.\n\n He places three glowing potions in front of you, each swirling with magic.`,
-    question: `Choose wisely. The right spirit will lead you home.`,
+    narrative: `A man with glowing eyes appears behind the bar. "I'm the Spirit Keeper, Guardian of liquid destinies" he says.\n\n He places three glowing potions in front of you, each swirling with magic. "Choose wisely. The right spirit will lead you home."`,
+    question: `Which one will you drink?`,
     choices: [
       {
         text: `A crystal-clear elixir with floating citrus peels and gentle fizz.`,
@@ -192,31 +192,33 @@ const quizSteps = ref([
     buttonText: 'See My Drink',
   },
 ]);
+
+
 const resultsData = {
   CN: {
     name: 'Chocolate Negroni',
     titleImage: new URL('../assets/marriott/Chocolate Negroni Text.png', import.meta.url).href,
     image: new URL('../assets/marriott/Chocolate negroni image.png', import.meta.url).href,
     heading: `“Bold and bittersweet, just like the stories you hold.”`,
-    description: `Beneath your cool exterior lies a soul lit by fire - sharp, deep, passionate.`,
-    reminder: 'Everyone needs time to breathe. Give yourself permission to rest and feel joy.',
+    description: `You may seem calm on the outside, but inside, you feel things deeply — you're sharp, passionate, and fully committed to what you care about, whether it's love, work, or your purpose. You don’t do anything halfway. But that kind of intensity can be heavy. You take on a lot, and sometimes, it’s hard to let go.`,
+    reminder: ' It’s okay to pause.\nYou deserve to rest and rest, to not always be chasing the next thing.',
   },
   GnT: {
     name: 'Singapore Gin & Tonic',
     titleImage: new URL('../assets/marriott/Gin & Tonic Text.png', import.meta.url).href,
     image: new URL('../assets/marriott/Gin & Tonic Image.png', import.meta.url).href,
     heading: `“Bright, grounded, and quietly complex - just like you.”`,
-    description: `You see the bigger picture when others get lost in the noise. Calm and self-aware, you thrive where thoughtfulness meets quiet confidence.`,
-    reminder: 'Not every path is clear. Sometimes, instinct matters more than the plan.',
+    description: `You stay calm and clear-headed, even when things get noisy or confusing. You like to keep things balanced and peaceful — but because you’re often the one holding everything together, taking big risks can feel scary.`,
+    reminder: ' Not every path will be clear. Sometimes, following your instincts matters more than having everything figured out. You don’t need to know it all, just be brave enough to start.',
   },
   CP: {
     name: 'Crossroad Punch',
     titleImage: new URL('../assets/marriott/Crossroad Punch Text.png', import.meta.url).href,
     image: new URL('../assets/marriott/Crossroad Punch Image.png', import.meta.url).href,
     heading: `“Sweet, unexpected, and wonderfully wild - just like you.”`,
-    description: `You're vibrant, intuitive, and drawn to the new, the wild, and the wonderful.`,
+    description: `You’re quick, curious, and full of life. You go with your gut, love new adventures, and aren’t afraid to be a little different. But moving fast and saying yes all the time l can make it easy to lose your way.`,
     reminder:
-      "Joy doesn't always come from movement. Sometimes, it finds you when you pause and listen to what you really need.",
+      "Joy doesn’t always come from doing more. Sometimes, the best thing you can do is slow down and listen to what you really need.",
   },
 };
 
