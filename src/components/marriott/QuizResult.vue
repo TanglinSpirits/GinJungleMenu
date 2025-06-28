@@ -12,6 +12,7 @@
         <p class="result-heading">{{ result.heading }}</p>
         <p class="result-description">{{ result.description }}</p>
         <p class="result-reminder">
+            <!-- <span style="font-style: italic;"></span> -->
             Your reminder: {{ result.reminder }}
         </p>
     </div>
@@ -118,6 +119,11 @@ const handleRestart = () => {
 .result-description,
 .result-reminder {
   font-size: clamp(1.1rem, 3dvw, 1.4rem);
+  white-space: pre-wrap;
+}
+
+.result-reminder {
+    font-style: italic;
 }
 
 .result-button-container {
